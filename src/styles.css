@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import "@fontsource/figtree";
+
+body {
+        font-family: "Figtree";
+    }
+
+.chip {
+  @apply absolute z-20 flex items-center gap-4 rounded-xl bg-white/95 shadow-md px-4 py-3
+         ring-1 ring-black/5 backdrop-blur transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#085B9C];
+}
+
+.chip-icon {
+  @apply inline-flex items-center justify-center text-[#0a8a4b]; 
+}
+
+.chip-label {
+  @apply text-sm text-gray-900 font-medium;
+}
+
+
+.cta {
+  @apply mt-10 inline-flex w-full sm:w-auto items-center justify-center rounded-full px-10 py-4
+         text-white text-base font-medium bg-[#085B9C] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#085B9C];
+}
