@@ -1,0 +1,104 @@
+<div class="min-h-screen flex relative">
+    <div class="absolute top-2 left-10 z-10">
+        <img class="w-40" src="logo/Logo.png" alt="Taraja logo" />
+    </div>
+
+    <div class="hidden lg:block relative basis-1/2 shrink-0">
+        <img class="absolute inset-0 h-full w-full object-cover" src="backgrounds/book.png"
+            alt="Professional meeting background" />
+        <div class="absolute inset-0">
+            <ng-container *ngFor="let chip of chips(); let i = index">
+                <button type="button" class="chip" [ngStyle]="{ top: chip.top, left: chip.left }" aria-haspopup="true"
+                    [attr.aria-controls]="'tip-' + i">
+                    <img ngSrc="{{ chip.iconSrc }}" width="16" height="16" alt="" class="inline-block align-middle" />
+                    <span class="chip-label">{{ chip.label }}</span>
+                </button>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="basis-1/2 shrink-0 flex flex-col justify-center px-6 bg-white">
+        <ng-container *ngIf="!started(); else onboarding">
+            <div class="mx-auto w-full max-w-xl text-center">
+                <p class="text-2xl sm:text-3xl md:text-[28px] leading-9 text-[#085B9C] font-semibold">
+                    To ensure your profile accurately reflects your expertise, please select
+                    the options that best describe your professional qualifications and services
+                </p>
+                <button type="button" (click)="begin()"
+                    class="mt-6 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-white bg-[#085B9C] hover:opacity-90">
+                    Let’s begin
+                </button>
+            </div>
+        </ng-container>
+
+        <ng-template #onboarding>
+            <div class="mx-auto w-full max-w-xl">
+                <div class="mb-6">
+                    <div class="flex justify-between mb-6">
+                        <ng-container *ngFor="let step of steps; let i = index">
+                            <div [ngClass]="{
+                  'h-2 rounded-full mx-1 flex-1': true,
+                  'bg-yellow-400': i <= currentStep,
+                  'bg-gray-300': i > currentStep
+                }"></div>
+                        </ng-container>
+                    </div>
+
+                    <div class="mt-4">
+                        <ng-container [ngSwitch]="currentStep">
+                            <div *ngSwitchCase="0">
+                                <h2 class="text-2xl font-semibold">What is your primary focus?</h2>
+                                <div class="space-y-3 mt-4">
+                                    <button
+                                        *ngFor="let option of ['Individual Therapy', 'Couples Therapy', 'Group Therapy', 'Child & adolescent Therapy']"
+                                        [ngClass]="{
+                                        'bg-sky-100 border-2': isSelected(currentStep, option),
+                                        'w-full border-2 border-gray-300 text-start text-blue-900 p-3 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.1)]': true
+                                    }">
+                                        {{ option }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="1">
+                                <h2 class="text-2xl font-semibold">What is your area of specialization?</h2>
+                                <h3 class="text-2xl font-semibold">(Select all that apply)</h3>
+                                <input type="number" class="w-full border p-3 mt-4" placeholder="Enter your age" />
+                            </div>
+
+                            <div *ngSwitchCase="2">
+                                <h2 class="text-2xl font-semibold">Which of the following best describes your current
+                                    licensure and credentials</h2>
+                                <h3 class="text-2xl font-semibold">(Select all that apply)</h3>
+                                <div class="space-y-3 mt-4">
+                                    <button *ngFor="let option of ['YES', 'N0']" [ngClass]="{
+                                        'bg-sky-100 border-2': isSelected(currentStep, option),
+                                        'w-full border-2 border-gray-300 text-start text-blue-900 p-3 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.1)]': true
+                                    }">
+                                        {{ option }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div *ngSwitchCase="3">
+                                <h2 class="text-2xl font-semibold">Which of the following best reflects your typical
+                                    weekly availability for providing teletherapy sessions?</h2>
+                                <h3 class="text-2xl font-semibold">(Select all that apply)</h3>
+                                <span class="text-gray-500 text-bold text-sm">Extra info if needed</span>
+
+                                <div class="space-y-3 mt-4">
+                                    <button *ngFor="let option of ['Married', 'Engaged', 'Courtship']" [ngClass]="{
+                                        'bg-sky-100 border-2': isSelected(currentStep, option),
+                                        'w-full border-2 border-gray-300 text-start text-blue-900 p-3 hover:shadow-[0_2px_0_0_rgba(0,0,0,0.1)]': true
+                                    }">
+                                        {{ option }}
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
